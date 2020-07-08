@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>Nyan Cat Everywhere</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <a href="https://github.com/TakWolf/NyanCatEverywhere" target="_blank">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="img/fork_me_on_github.png" alt="Fork me on GitHub">
+    </a>
+
+    <img class="logo" src="img/nyancat.gif">
+    <h1 class="title">Nyan Cat Everywhere</h1>
+
+    <div class="card">
+        <img class="screenshot" src="img/screenshot-nyancat.png">
+        <br>
+        <input id="go-nyancat" class="go-url" type="text" value="https://blog.takwolf.com">
+        <input class="go-button" type="button" value="GO" onclick="go('go-nyancat')">
+    </div>
+
+    <div class="card">
+        <img class="screenshot" src="img/screenshot-snowflake.png">
+        <br>
+        <input id="go-snowflake" class="go-url" type="text" value="https://blog.takwolf.com">
+        <input class="go-button" type="button" value="GO" onclick="go('go-snowflake')">
+    </div>
+
+    <div class="card">
+        <img class="screenshot" src="img/screenshot-sakura.png">
+        <br>
+        <input id="go-sakura" class="go-url" type="text" value="https://blog.takwolf.com">
+        <input class="go-button" type="button" value="GO" onclick="go('go-sakura')">
+    </div>
+
+    <script>
+        function go(id) {
+            var input = document.getElementById(id);
+            window.open(id.substr(3) + ".html#" + input.value);
+        }
+    </script>
+
+</body>
+</html>

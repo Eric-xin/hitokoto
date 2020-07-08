@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="script/html2canvas.min.js"></script>
+    <script src="script/canvas2image.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="div1" style="width: 200px; height: 450px; border: silver 1px solid; ">
+            <!--<img src="Images/imgDemo.jpg" style="width: 160px; height: 160px; margin-left: 20px; margin-right: 20px; margin-top: 40px;"/>-->
+            <label style="text-align: center;display:block"><b>王二小</b>
+                <br/>
+            </label>
+            <label style="text-align: center;display:block">王二小喜欢放牛
+                <br/>
+            </label>
+            <div align="center">王二小喜欢放牛,
+                <br />王二小喜欢放牛,
+                <br />王二小喜欢放牛,
+                <br />王二小喜欢放牛
+                <br />
+            </div>
+        </div>
+        <div id="img" style="display: none; width: 200px; height: 450px; position: absolute; top: 8px; left: 216px;"></div>
+        <button id="btnCreateImg">生成图片</button>
+        <button id="btnSaveImg">下载图片</button>
+    </div>
+</body>
+<script type="text/javascript">
+    var content = document.getElementById("div1");
+    var btn = document.getElementById("btnCreateImg");
+    btn.onclick = function() {
+        html2canvas(content, {
+            useCORS: true, //允许跨域
+            onrendered:function(canvas) {
+                canvas.setAttribute("id", "thecanvas");
+                document.getElementById("img").innerHTML = "";
+                document.getElementById("img").appendChild(canvas);
+            }
+        });
+        // html2canvas(document.querySelector(".wrapper"), {
+        //         allowTaint: true,
+        //         useCORS: true,
+        //         onrendered:function(canvas) {
+        //             canvas.setAttribute("id", "thecanvas");
+        //             document.getElementById("img").innerHTML = "";
+        //             document.getElementById("img").appendChild(canvas);
+        //         }
+        //     })
+            // .then(canvas => {
+            //     console.log(canvas);
+            //     document.body.appendChild(canvas)
+            // });
+        window.alert('生成图片成功');
+    };
+
+    var btnDownload = document.getElementById("btnSaveImg");
+    btnDownload.onclick = function () {
+        var timestamp = Date.parse(new Date());
+        var fileName = timestamp + ".PNG";
+
+        var oCanvas = document.getElementById("thecanvas");
+        // var img_data1 = Canvas2Image.saveAsPNG(oCanvas, true).getAttribute("src");
+        var img_data1 = Canvas2Image.saveAsPNG(oCanvas, false, 100, 100)
+        //下载保存
+        saveFile(img_data1, fileName);
+
+        //此种方法将直接下载文件，但是不带有图片后缀名
+        //Canvas2Image.saveAsPNG(oCanvas);
+
+        window.alert('下载完成');
+    };
+
+    
+var saveFile = function(data, filename){
+    var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+    save_link.href = data;
+    save_link.download = filename;
+   
+    var event = document.createEvent('MouseEvents');
+    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    save_link.dispatchEvent(event);
+}
+</script>
+</html>
