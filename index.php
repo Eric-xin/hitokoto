@@ -20,6 +20,8 @@
     <link rel="alternate icon" type="image/png" href="icon.png">
 
     <script src="./script/jquery-3.5.1.min.js"></script>
+    <!--<script src="./script/html2canvas.js"></script>-->
+    <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta3/html2canvas.js"></script>
     <script>
         function ajax(url) {
             if (window.XMLHttpRequest) {
@@ -71,9 +73,9 @@
                 auto_change_sen();
             }
         }
-        </script>
-        
-        <script>
+    </script>
+
+    <script>
         function nyan_cat() {
             var include = document.createElement('iframe');
             include.style.position = 'fixed';
@@ -202,33 +204,76 @@
         console.log("没想到你打开了F12!\n这是由ericxin开发的真鸡汤系统\n提供api ./api\n可以使试一下毒鸡汤 ericxin.cf:234");
         // confirm("欢迎来到真鸡汤");
     </script>
+    <script>
+        function get_image() {
+            var userAgent = navigator.userAgent;
+            var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1;
+            html2canvas($('#content'), {
+                allowTaint: true,
+                taintTest: false,
+                useCORS: true, //火狐浏览器添加项
+                background: "#FFFFFF",
+                onrendered: function (canvas) {
+
+                    var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                    var userAgent = navigator.userAgent;
+                    //判断是否是IE11
+                    debugger
+                    if (-1 !== userAgent.indexOf("Trident")) {
+                        var arr = image.split(',');
+                        var mime = arr[0].match(/:(.*?);/)[1];
+                        var bstr = atob(arr[1]);
+                        var n = bstr.length;
+                        var u8arr = new Uint8Array(n);
+                        while (n--) {
+                            u8arr[n] = bstr.charCodeAt(n);
+                        }
+                        window.navigator.msSaveBlob(new Blob([u8arr], {
+                            type: mime
+                        }), "download.png");
+                    } else {
+                        canvas.id = "mycanvas";
+                        //生成base64图片数据
+                        var dataUrl = canvas.toDataURL();
+                        var newImg = document.createElement("img");
+                        newImg.src = dataUrl;
+                        var a = $("<a></a>").attr("href", dataUrl).attr("download", "img.png");
+                        $("body").append(a); //火狐浏览器添加项
+                        a[0].click();
+                        a.remove();
+                    }
+                }
+            });
+        }
+    </script>
 
 </head>
 <body>
-    <div class="top-wrap" style="position: absolute; top: 1vh;width: 100%;z-index: 999">
-        <div class="container">
-            <div class="row" style="margin-top: 30px;">
-                <div class="col">
-                    <img src="./img/logo.png">
-                </div>
-                <div class="col">
-                    <div class="float-right" style="padding-top: 0px;">
-                        <a class="btn btn-primary btn-filled btn-xs" onclick="auto_change();">自动</a>
-                        <!--<a class="btn btn-primary btn-filled btn-xs" onclick="stop_acs();">停止</a>-->
+    <div id="content">
+        <div class="top-wrap" style="position: absolute; top: 1vh;width: 100%;z-index: 999">
+            <div class="container">
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col">
+                        <img src="./img/logo.png">
+                    </div>
+                    <div class="col">
+                        <div class="float-right" style="padding-top: 0px;">
+                            <a class="btn btn-primary btn-filled btn-xs" onclick="auto_change();">自动</a>
+                            <!--<a class="btn btn-primary btn-filled btn-xs" onclick="stop_acs();">停止</a>-->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="main-wrapper" style="position: relative; top: -6vh;">
-        <div class="container main-sentence justify-content-center text-center">
-            <!--<div id="1"><span id="sentence" style="font-size: 2rem;"></span></div>-->
-            <span id="sentence" style="font-size: 2rem;"><div id="1"></div>
-            </span>
-            <!--<br>-->
-            <a class="btn btn-primary btn-xs" onclick="change_sen();">换一句</a>
-            <a class="btn btn-primary btn-xs" onclick="nyan_cat();">鬼畜</a></a>
+        <div class="main-wrapper" style="position: relative; top: -6vh;">
+            <div class="container main-sentence justify-content-center text-center">
+                <!--<div id="1"><span id="sentence" style="font-size: 2rem;"></span></div>-->
+                <span id="sentence" style="font-size: 2rem;"><div id="1"></div>
+                </span>
+                <!--<br>-->
+                <a class="btn btn-primary btn-xs" onclick="change_sen();">换一句</a>
+                <a class="btn btn-primary btn-xs" onclick="nyan_cat();">鬼畜</a></a>
         </div>
     </div>
 
@@ -237,16 +282,18 @@
             <div class="row">
                 <div class="col text-center">
                     <p class="lead text">
-                        截屏分享朋友
+                        <!--截屏分享朋友-->
+                        <a onclick="get_image();">截屏分享朋友</a>
                     </p>
-                    <span class="btn btn-primary btn-filled btn-xs"><a class="btn btn-primary btn-filled btn-xs" href="http://ericxin.cf">ericxin.cf</a></span>
+                    <span class="btn btn-primary btn-filled btn-xs"><a class="btn btn-primary btn-filled btn-xs" onclick="get_image();">ericxin.cf</a></span>
                 </div>
             </div>
         </div>
     </div>
     <div style="display:none;">
-        <script type="text/javascript" src="https://s9.cnzz.com/z_stat.php?id=5406879&web_id=5406879"></script>
+        <script type="text/javascript" src="./script/disply.js"></script>
     </div>
+</div>
 
 </body>
 </html>
