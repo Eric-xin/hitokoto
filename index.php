@@ -247,6 +247,12 @@
         }
     </script>
 
+    <script>
+        console.log("\n %c REAL-SOUP by ERICXIN %c http://ericxin.cf \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #fadfa3; padding:5px 0;");
+    </script>
+    <link rel="stylesheet" href="./script/APlayer.min.css">
+    <script src="./script/APlayer.min.js"></script>
+    <script src="./script/Meting.min.js"></script>
 </head>
 <body>
     <div id="content">
@@ -273,7 +279,8 @@
                 </span>
                 <!--<br>-->
                 <a class="btn btn-primary btn-xs" onclick="change_sen();">换一句</a>
-                <a class="btn btn-primary btn-xs" onclick="nyan_cat();">鬼畜</a></a>
+                <a class="btn btn-primary btn-xs" onclick="nyan_cat();">鬼畜</a>
+            </a>
         </div>
     </div>
 
@@ -292,6 +299,16 @@
     </div>
     <div style="display:none;">
         <script type="text/javascript" src="./script/disply.js"></script>
+    </div>
+</div>
+<div class="foot-1" style="position: absolute; bottom: 10vh;width: 100%;">
+    <div class="container">
+        <meting-js
+            mini="true"
+            server="netease"
+            type="song"
+            id="426291168">
+        </meting-js>
     </div>
 </div>
 
