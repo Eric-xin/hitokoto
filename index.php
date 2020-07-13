@@ -209,13 +209,14 @@
             var userAgent = navigator.userAgent;
             var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1;
             html2canvas($('#content'), {
-                allowTaint: true,
+                allowTaint: false,
                 taintTest: false,
                 useCORS: true, //火狐浏览器添加项
                 background: "#FFFFFF",
                 onrendered: function (canvas) {
 
                     var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                    // .setAttribute("crossOrigin",'Anonymous')
                     var userAgent = navigator.userAgent;
                     //判断是否是IE11
                     debugger
@@ -297,11 +298,7 @@
             </div>
         </div>
     </div>
-    <div style="display:none;">
-        <script type="text/javascript" src="./script/disply.js"></script>
-    </div>
-</div>
-<div class="foot-1" style="position: absolute; bottom: 10vh;width: 100%;">
+    <div class="foot-1" style="position: absolute; bottom: 10vh;width: 100%;">
     <div class="container">
         <meting-js
             mini="true"
@@ -309,6 +306,10 @@
             type="song"
             id="426291168">
         </meting-js>
+    </div>
+</div>
+    <div style="display:none;">
+        <script type="text/javascript" src="./script/disply.js"></script>
     </div>
 </div>
 
